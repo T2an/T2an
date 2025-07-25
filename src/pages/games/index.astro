@@ -1,0 +1,74 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { PrismaClient } from '@prisma/client';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+let prisma;
+if (process.env.NODE_ENV === 'production') {
+  prisma = new PrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
+  }
+  prisma = global.prisma;
+}
+
+// Récupérer tous les jeux actifs
+const games = await prisma.game.findMany({
+  where: { isActive: true },
+  include: {
+    _count: {
+      select: { questions: true }
+    }
+  }
+});
+---
+
+<Layout title="Jeux | Portfolio">
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-terminal-green">$ ls -la /games</h1>
+    <div class="grid gap-6">
+      {games.map((game) => (
+        <a href={`/games/${game.name}`} class="block border border-terminal-green rounded-lg p-6 hover:bg-terminal-gray transition-colors">
+          <div class="flex justify-between items-start">
+            <div>
+              <h2 class="text-2xl font-bold mb-2">{game.title}</h2>
+              <p class="text-gray-400 mb-2">{game.description}</p>
+              <p class="text-sm text-terminal-green">{game._count.questions} questions disponibles</p>
+            </div>
+            <div class="text-right">
+              <div class="text-sm text-gray-500">Meilleure série</div>
+              <div class="text-lg font-bold text-terminal-green" id={`score-${game.name}`}>--</div>
+            </div>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<script>
+  // Charger les scores de l'utilisateur connecté
+  async function loadUserScores() {
+    try {
+      const response = await fetch('/api/games');
+      const games = await response.json();
+      
+      games.forEach(game => {
+        if (game.userScore) {
+          const scoreElement = document.getElementById(`score-${game.name}`);
+          if (scoreElement) {
+            scoreElement.textContent = game.userScore.streak;
+          }
+        }
+      });
+    } catch (error) {
+      console.error('Erreur lors du chargement des scores:', error);
+    }
+  }
+
+  // Charger les scores au chargement de la page
+  loadUserScores();
+</script> 

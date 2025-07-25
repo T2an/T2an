@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Accueil | Portfolio">
+  <div class="max-w-3xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-terminal-green">
+      $ whoami
+    </h1>
+    <div class="prose prose-invert max-w-none">
+      <p class="text-lg mb-6">
+        Bonjour ! Je suis un ingénieur en cybersécurité spécialisé en télécoms, réseaux et systèmes.
+        Passionné par la sécurité informatique et le développement, je partage ici mes connaissances
+        et expériences.
+      </p>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
+        <a href="https://github.com/titouan-heyrendt" 
+           class="p-4 border border-terminal-green rounded hover:bg-terminal-gray transition-colors">
+          <h2 class="text-xl font-bold mb-2">GitHub</h2>
+          <p>Découvrez mes projets et contributions</p>
+        </a>
+        
+        <a href="https://linkedin.com/in/titouan-heyrendt" 
+           class="p-4 border border-terminal-green rounded hover:bg-terminal-gray transition-colors">
+          <h2 class="text-xl font-bold mb-2">LinkedIn</h2>
+          <p>Connectez-vous avec moi professionnellement</p>
+        </a>
+      </div>
+    </div>
+  </div>
+</Layout> 

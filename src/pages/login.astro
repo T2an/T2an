@@ -1,0 +1,11 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LoginForm from '../components/LoginForm.jsx';
+---
+
+<Layout title="Connexion | Portfolio">
+  <div class="max-w-md mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-terminal-green">$ login</h1>
+    <LoginForm client:load />
+  </div>
+</Layout> 

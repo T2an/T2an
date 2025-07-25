@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  pseudo    String   @unique
+  password  String
+  createdAt DateTime @default(now())
+  
+  // Relation avec les scores
+  scores    Score[]
+}
+
+model Game {
+  id          Int       @id @default(autoincrement())
+  name        String    @unique // ex: "departements", "capitals", "flags"
+  title       String    // ex: "Quiz des Départements", "Capitales du Monde"
+  description String    // Description du jeu
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  
+  // Relations
+  questions   Question[]
+  scores      Score[]
+}
+
+model Question {
+  id       Int      @id @default(autoincrement())
+  gameId   Int
+  question String   // Question posée
+  answer   String   // Réponse correcte
+  options  String?  // Options multiples (JSON) si applicable
+  type     String   @default("text") // "text", "multiple_choice", "image"
+  difficulty Int    @default(1) // 1-5
+  metadata String?  // Données supplémentaires (JSON)
+  createdAt DateTime @default(now())
+  
+  // Relations
+  game     Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+}
+
+model Score {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  gameId    Int
+  score     Int      // Score actuel
+  maxScore  Int      // Meilleur score de l'utilisateur pour ce jeu
+  streak    Int      // Plus longue série sans erreur
+  totalQuestions Int // Nombre total de questions répondues
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // Relations
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  
+  // Index unique pour un utilisateur par jeu
+  @@unique([userId, gameId])
+}

@@ -1,0 +1,53 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import GameQuiz from '../../components/GameQuiz.jsx';
+import { PrismaClient } from '@prisma/client';
+import dotenv from 'dotenv';
+
+dotenv.config();
+
+let prisma;
+if (process.env.NODE_ENV === 'production') {
+  prisma = new PrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
+  }
+  prisma = global.prisma;
+}
+
+const { gameName } = Astro.params;
+
+// Récupérer le jeu et ses questions
+const game = await prisma.game.findUnique({
+  where: { name: gameName },
+  include: {
+    questions: {
+      select: {
+        id: true,
+        question: true,
+        answer: true,
+        type: true,
+        difficulty: true,
+        metadata: true
+      }
+    }
+  }
+});
+
+if (!game || !game.isActive) {
+  return Astro.redirect('/games');
+}
+---
+
+<Layout title={`${game.title} | Jeux`}>
+  <div class="max-w-4xl mx-auto">
+    <h1 class="text-4xl font-bold mb-8 text-terminal-green">$ quiz {gameName}</h1>
+    <div class="mb-4">
+      <h2 class="text-2xl font-bold mb-2">{game.title}</h2>
+      <p class="text-gray-400 mb-4">{game.description}</p>
+      <p class="text-sm text-terminal-green">{game.questions.length} questions disponibles</p>
+    </div>
+    <GameQuiz game={game} client:load />
+  </div>
+</Layout> 

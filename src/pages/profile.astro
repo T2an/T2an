@@ -1,0 +1,28 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { requireAuth } from '../lib/jwt.js';
+
+const { request, redirect } = Astro;
+const auth = requireAuth(request);
+
+if (!auth.authenticated) {
+  return redirect('/login');
+}
+---
+
+<Layout title="Profil | Portfolio">
+  <div class="max-w-md mx-auto mt-8">
+    <h1 class="text-4xl font-bold mb-8 text-terminal-green">Profil</h1>
+    <p class="text-gray-300 mb-4">Bienvenue sur votre page de profil !</p>
+    <div class="bg-terminal-gray border border-terminal-green rounded p-4">
+      <div class="mb-2">
+        <span class="font-bold text-terminal-green">Pseudo :</span>
+        <span class="ml-2">{auth.user.pseudo}</span>
+      </div>
+      <div class="mb-2">
+        <span class="font-bold text-terminal-green">Email :</span>
+        <span class="ml-2">{auth.user.email}</span>
+      </div>
+    </div>
+  </div>
+</Layout> 
