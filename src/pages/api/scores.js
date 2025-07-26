@@ -14,13 +14,12 @@ if (process.env.NODE_ENV === 'production') {
   prisma = global.prisma;
 }
 
-// Récupérer les scores d'un utilisateur
 export async function GET({ request }) {
   try {
     const authResult = requireAuth(request);
     
     if (!authResult.authenticated) {
-      return new Response(JSON.stringify({ error: 'Authentification requise' }), {
+      return new Response(JSON.stringify({ error: 'Authentication required' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' }
       });
@@ -44,21 +43,20 @@ export async function GET({ request }) {
     });
 
   } catch (error) {
-    console.error('Erreur lors de la récupération des scores:', error);
-    return new Response(JSON.stringify({ error: 'Erreur interne du serveur' }), {
+    console.error('Error retrieving scores:', error);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });
   }
 }
 
-// Sauvegarder un score (appelé à chaque Game Over)
 export async function POST({ request }) {
   try {
     const authResult = requireAuth(request);
     
     if (!authResult.authenticated) {
-      return new Response(JSON.stringify({ error: 'Authentification requise' }), {
+      return new Response(JSON.stringify({ error: 'Authentication required' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' }
       });
@@ -67,13 +65,12 @@ export async function POST({ request }) {
     const { gameId, score, streak, totalQuestions } = await request.json();
 
     if (!gameId || score === undefined || streak === undefined || totalQuestions === undefined) {
-      return new Response(JSON.stringify({ error: 'Données manquantes' }), {
+      return new Response(JSON.stringify({ error: 'Missing data' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
-    // Vérifier si un score existe déjà pour cet utilisateur et ce jeu
     const existingScore = await prisma.score.findUnique({
       where: {
         userId_gameId: {
@@ -85,26 +82,24 @@ export async function POST({ request }) {
 
     let updatedScore;
     if (existingScore) {
-      // Mettre à jour le score existant
       updatedScore = await prisma.score.update({
         where: { id: existingScore.id },
         data: {
-          score: score, // Score actuel (série terminée)
-          maxScore: Math.max(existingScore.maxScore, score), // Meilleur score historique
-          streak: Math.max(existingScore.streak, streak), // Meilleure série historique
-          totalQuestions: existingScore.totalQuestions + totalQuestions // Nombre de parties jouées
+          score: score,
+          maxScore: Math.max(existingScore.maxScore, score),
+          streak: Math.max(existingScore.streak, streak),
+          totalQuestions: existingScore.totalQuestions + totalQuestions
         }
       });
     } else {
-      // Créer un nouveau score
       updatedScore = await prisma.score.create({
         data: {
           userId: authResult.user.id,
           gameId: parseInt(gameId),
-          score: score, // Score actuel
-          maxScore: score, // Meilleur score historique
-          streak: streak, // Meilleure série historique
-          totalQuestions: totalQuestions // Nombre de parties jouées
+          score: score,
+          maxScore: score,
+          streak: streak,
+          totalQuestions: totalQuestions
         }
       });
     }
@@ -115,8 +110,8 @@ export async function POST({ request }) {
     });
 
   } catch (error) {
-    console.error('Erreur lors de la sauvegarde du score:', error);
-    return new Response(JSON.stringify({ error: 'Erreur interne du serveur' }), {
+    console.error('Error saving score:', error);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });

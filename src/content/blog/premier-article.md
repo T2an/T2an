@@ -1,37 +1,37 @@
 ---
-title: "Introduction à la Cybersécurité"
-description: "Un aperçu des concepts fondamentaux de la cybersécurité"
+title: "Introduction to Cybersecurity"
+description: "An overview of fundamental cybersecurity concepts"
 pubDate: 2024-01-20
 ---
 
-# Introduction à la Cybersécurité
+# Introduction to Cybersecurity
 
-La cybersécurité est un domaine en constante évolution qui joue un rôle crucial dans notre société numérique. Cet article présente les concepts fondamentaux de la sécurité informatique.
+Cybersecurity is a constantly evolving field that plays a crucial role in our digital society. This article presents the fundamental concepts of computer security.
 
-## Les piliers de la cybersécurité
+## The pillars of cybersecurity
 
-1. **Confidentialité**
-   - Protection des données sensibles
-   - Chiffrement des communications
-   - Gestion des accès
+1. **Confidentiality**
+   - Protection of sensitive data
+   - Encryption of communications
+   - Access management
 
-2. **Intégrité**
-   - Vérification de l'authenticité des données
-   - Protection contre les modifications non autorisées
-   - Systèmes de contrôle d'intégrité
+2. **Integrity**
+   - Verification of data authenticity
+   - Protection against unauthorized modifications
+   - Integrity control systems
 
-3. **Disponibilité**
-   - Protection contre les attaques par déni de service
-   - Redondance des systèmes
-   - Plans de reprise d'activité
+3. **Availability**
+   - Protection against denial of service attacks
+   - System redundancy
+   - Business continuity plans
 
-## Bonnes pratiques
+## Best practices
 
-- Mise à jour régulière des systèmes
-- Utilisation de mots de passe forts
-- Formation continue des utilisateurs
-- Mise en place de politiques de sécurité
+- Regular system updates
+- Use of strong passwords
+- Continuous user training
+- Implementation of security policies
 
 ## Conclusion
 
-La cybersécurité est un domaine qui nécessite une approche holistique et une vigilance constante. La protection des systèmes d'information est une responsabilité partagée entre les organisations et les individus. 
+Cybersecurity is a field that requires a holistic approach and constant vigilance. The protection of information systems is a shared responsibility between organizations and individuals. 

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 export default function RegisterForm() {
   const [email, setEmail] = useState("");
-  const [pseudo, setPseudo] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
@@ -16,27 +16,26 @@ export default function RegisterForm() {
     setSuccess("");
 
     if (password !== confirmPassword) {
-      setError("Les mots de passe ne correspondent pas");
+      setError("Passwords do not match");
       setLoading(false);
       return;
     }
 
     if (password.length < 8) {
-      setError("Le mot de passe doit contenir au moins 8 caractères");
+      setError("Password must be at least 8 characters long");
       setLoading(false);
       return;
     }
 
-    if (pseudo.length < 3 || pseudo.length > 20 || !/^[a-zA-Z0-9_-]+$/.test(pseudo)) {
-      setError("Le pseudo doit faire entre 3 et 20 caractères et ne contenir que des lettres, chiffres, tirets ou underscores.");
+    if (username.length < 3 || username.length > 20 || !/^[a-zA-Z0-9_-]+$/.test(username)) {
+      setError("Username must be between 3 and 20 characters and contain only letters, numbers, hyphens or underscores.");
       setLoading(false);
       return;
     }
 
-    // Validation email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setError("Format d'email invalide");
+      setError("Invalid email format");
       setLoading(false);
       return;
     }
@@ -47,21 +46,21 @@ export default function RegisterForm() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, password, pseudo }),
+        body: JSON.stringify({ email, password, username }),
       });
 
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess("Inscription réussie ! Redirection vers la connexion...");
+        setSuccess("Registration successful! Redirecting to login...");
         setTimeout(() => {
           window.location.href = "/login";
         }, 2000);
       } else {
-        setError(data.error || "Erreur d'inscription");
+        setError(data.error || "Registration error");
       }
     } catch (err) {
-      setError("Erreur de connexion au serveur");
+      setError("Server connection error");
     } finally {
       setLoading(false);
     }
@@ -71,14 +70,14 @@ export default function RegisterForm() {
     <div className="border border-terminal-green rounded-lg p-6">
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label htmlFor="pseudo" className="block text-sm font-medium mb-2">
-            Pseudo
+          <label htmlFor="username" className="block text-sm font-medium mb-2">
+            Username
           </label>
           <input
             type="text"
-            id="pseudo"
-            value={pseudo}
-            onChange={(e) => setPseudo(e.target.value)}
+            id="username"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
             className="w-full px-3 py-2 border border-terminal-green rounded bg-terminal-gray text-terminal-green"
             required
             minLength={3}
@@ -103,7 +102,7 @@ export default function RegisterForm() {
         
         <div>
           <label htmlFor="password" className="block text-sm font-medium mb-2">
-            Mot de passe
+            Password
           </label>
           <input
             type="password"
@@ -118,7 +117,7 @@ export default function RegisterForm() {
 
         <div>
           <label htmlFor="confirmPassword" className="block text-sm font-medium mb-2">
-            Confirmer le mot de passe
+            Confirm Password
           </label>
           <input
             type="password"
@@ -136,7 +135,7 @@ export default function RegisterForm() {
           disabled={loading}
           className="w-full px-4 py-2 border border-terminal-green rounded hover:bg-terminal-gray disabled:opacity-50"
         >
-          {loading ? "Inscription..." : "S'inscrire"}
+          {loading ? "Registering..." : "Register"}
         </button>
       </form>
 
@@ -154,9 +153,9 @@ export default function RegisterForm() {
 
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-400">
-          Déjà un compte ?{" "}
+          Already have an account?{" "}
           <a href="/login" className="text-terminal-green hover:underline">
-            Se connecter
+            Sign in
           </a>
         </p>
       </div>

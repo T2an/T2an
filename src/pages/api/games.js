@@ -18,7 +18,6 @@ export async function GET({ request }) {
   try {
     const authResult = requireAuth(request);
     
-    // Récupérer tous les jeux actifs
     const games = await prisma.game.findMany({
       where: { isActive: true },
       include: {
@@ -28,7 +27,6 @@ export async function GET({ request }) {
       }
     });
 
-    // Si l'utilisateur est connecté, récupérer ses scores
     let userScores = {};
     if (authResult.authenticated) {
       const scores = await prisma.score.findMany({
@@ -45,7 +43,6 @@ export async function GET({ request }) {
       });
     }
 
-    // Combiner les jeux avec les scores
     const gamesWithScores = games.map(game => ({
       id: game.id,
       name: game.name,
@@ -61,8 +58,8 @@ export async function GET({ request }) {
     });
 
   } catch (error) {
-    console.error('Erreur lors de la récupération des jeux:', error);
-    return new Response(JSON.stringify({ error: 'Erreur interne du serveur' }), {
+    console.error('Error retrieving games:', error);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });

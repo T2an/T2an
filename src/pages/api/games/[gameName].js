@@ -17,7 +17,6 @@ export async function GET({ request, params }) {
   try {
     const { gameName } = params;
 
-    // Récupérer le jeu
     const game = await prisma.game.findUnique({
       where: { name: gameName },
       include: {
@@ -35,14 +34,14 @@ export async function GET({ request, params }) {
     });
 
     if (!game) {
-      return new Response(JSON.stringify({ error: 'Jeu non trouvé' }), {
+      return new Response(JSON.stringify({ error: 'Game not found' }), {
         status: 404,
         headers: { 'Content-Type': 'application/json' }
       });
     }
 
     if (!game.isActive) {
-      return new Response(JSON.stringify({ error: 'Jeu non disponible' }), {
+      return new Response(JSON.stringify({ error: 'Game not available' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
       });
@@ -60,8 +59,8 @@ export async function GET({ request, params }) {
     });
 
   } catch (error) {
-    console.error('Erreur lors de la récupération du jeu:', error);
-    return new Response(JSON.stringify({ error: 'Erreur interne du serveur' }), {
+    console.error('Error retrieving game:', error);
+    return new Response(JSON.stringify({ error: 'Internal server error' }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }
     });

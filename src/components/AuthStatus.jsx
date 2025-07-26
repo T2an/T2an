@@ -42,18 +42,18 @@ export default function AuthStatus() {
   }
 
   if (loading) {
-    return <span className="text-gray-400 ml-4">Chargement...</span>;
+    return <span className="text-gray-400 ml-4">Loading...</span>;
   }
 
   if (user) {
     return (
       <div className="flex items-center space-x-4 ml-4">
-        <a href="/profile" className="hover:text-terminal-green transition-colors">Profil</a>
+        <a href="/profile" className="hover:text-terminal-green transition-colors">Profile</a>
         <button
           onClick={handleLogout}
           className="hover:text-terminal-green transition-colors border border-terminal-green rounded px-3 py-1 ml-2"
         >
-          Se déconnecter
+          Sign out
         </button>
       </div>
     );
@@ -61,7 +61,7 @@ export default function AuthStatus() {
 
   return (
     <a href="/login" className="hover:text-terminal-green transition-colors ml-4">
-      Se connecter
+      Sign in
     </a>
   );
 } 

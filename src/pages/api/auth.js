@@ -1,7 +1,6 @@
 import { requireAuth } from '../../../src/lib/jwt.js';
 import dotenv from 'dotenv';
 
-// Charger les variables d'environnement
 dotenv.config();
 
 export async function GET({ request }) {
@@ -27,11 +26,11 @@ export async function GET({ request }) {
     }
 
   } catch (error) {
-    console.error('Erreur lors de la vérification d\'authentification:', error);
+    console.error('Authentication verification error:', error);
     return new Response(JSON.stringify({ 
       authenticated: false,
       user: null,
-      error: 'Erreur interne du serveur'
+      error: 'Internal server error'
     }), {
       status: 500,
       headers: { 'Content-Type': 'application/json' }

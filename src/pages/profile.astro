@@ -10,17 +10,17 @@ if (!auth.authenticated) {
 }
 ---
 
-<Layout title="Profil | Portfolio">
+<Layout title="Profile | Portfolio">
   <div class="max-w-md mx-auto mt-8">
-    <h1 class="text-4xl font-bold mb-8 text-terminal-green">Profil</h1>
-    <p class="text-gray-300 mb-4">Bienvenue sur votre page de profil !</p>
+    <h1 class="text-4xl font-bold mb-8 text-terminal-green">Profile</h1>
+    <p class="text-gray-300 mb-4">Welcome to your profile page!</p>
     <div class="bg-terminal-gray border border-terminal-green rounded p-4">
       <div class="mb-2">
-        <span class="font-bold text-terminal-green">Pseudo :</span>
-        <span class="ml-2">{auth.user.pseudo}</span>
+        <span class="font-bold text-terminal-green">Username:</span>
+        <span class="ml-2">{auth.user.username}</span>
       </div>
       <div class="mb-2">
-        <span class="font-bold text-terminal-green">Email :</span>
+        <span class="font-bold text-terminal-green">Email:</span>
         <span class="ml-2">{auth.user.email}</span>
       </div>
     </div>

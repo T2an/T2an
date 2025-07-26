@@ -6,11 +6,11 @@ interface Props {
   description?: string;
 }
 
-const { title, description = "Portfolio et blog d'un ingénieur en cybersécurité" } = Astro.props;
+const { title, description = "Cybersecurity engineer portfolio and blog" } = Astro.props;
 ---
 
 <!DOCTYPE html>
-<html lang="fr" class="dark">
+<html lang="en" class="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
@@ -25,11 +25,11 @@ const { title, description = "Portfolio et blog d'un ingénieur en cybersécurit
       <nav class="container mx-auto flex justify-between items-center">
         <a href="/" class="text-terminal-green hover:text-white transition-colors">$ cd /home</a>
         <div class="space-x-4 flex items-center">
-          <a href="/" class="hover:text-terminal-green transition-colors">Accueil</a>
+          <a href="/" class="hover:text-terminal-green transition-colors">Home</a>
           <a href="/cv" class="hover:text-terminal-green transition-colors">CV</a>
           <a href="/blog" class="hover:text-terminal-green transition-colors">Blog</a>
-          <a href="/projets" class="hover:text-terminal-green transition-colors">Projets</a>
-          <a href="/games" class="hover:text-terminal-green transition-colors">Jeu</a>
+          <a href="/projets" class="hover:text-terminal-green transition-colors">Projects</a>
+          <a href="/games" class="hover:text-terminal-green transition-colors">Games</a>
           <AuthStatus client:load />
         </div>
       </nav>

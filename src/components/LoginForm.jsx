@@ -25,15 +25,15 @@ export default function LoginForm() {
       const data = await response.json();
 
       if (response.ok) {
-        setSuccess("Connexion réussie ! Redirection...");
+        setSuccess("Login successful! Redirecting...");
         setTimeout(() => {
           window.location.href = "/";
         }, 1000);
       } else {
-        setError(data.error || "Erreur de connexion");
+        setError(data.error || "Login error");
       }
     } catch (err) {
-      setError("Erreur de connexion au serveur");
+      setError("Server connection error");
     } finally {
       setLoading(false);
     }
@@ -58,7 +58,7 @@ export default function LoginForm() {
         
         <div>
           <label htmlFor="password" className="block text-sm font-medium mb-2">
-            Mot de passe
+            Password
           </label>
           <input
             type="password"
@@ -75,7 +75,7 @@ export default function LoginForm() {
           disabled={loading}
           className="w-full px-4 py-2 border border-terminal-green rounded hover:bg-terminal-gray disabled:opacity-50"
         >
-          {loading ? "Connexion..." : "Se connecter"}
+          {loading ? "Signing in..." : "Sign in"}
         </button>
       </form>
 
@@ -93,9 +93,9 @@ export default function LoginForm() {
 
       <div className="mt-4 text-center">
         <p className="text-sm text-gray-400">
-          Pas encore de compte ?{" "}
+          Don't have an account yet?{" "}
           <a href="/register" className="text-terminal-green hover:underline">
-            S'inscrire
+            Register
           </a>
         </p>
       </div>

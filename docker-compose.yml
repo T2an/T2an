@@ -8,12 +8,12 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=file:./prisma/prod.db
+      - DATABASE_URL=file:./prisma/database.db
       - JWT_SECRET=${JWT_SECRET:-change-this-in-production-and-use-a-strong-secret-key}
     volumes:
       - ./prisma:/app/prisma
     env_file:
-      - .env.production
+      - .env
 
   nginx:
     image: nginx:alpine

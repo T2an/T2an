@@ -20,11 +20,10 @@ export default function ProtectedRoute({ children, fallback = null }) {
       } else {
         setUser(null);
         setAuthenticated(false);
-        // Rediriger vers la page de connexion
         window.location.href = "/login";
       }
     } catch (error) {
-      console.error("Erreur lors de la vérification d'authentification:", error);
+      console.error("Authentication verification error:", error);
       setUser(null);
       setAuthenticated(false);
       window.location.href = "/login";
@@ -34,11 +33,11 @@ export default function ProtectedRoute({ children, fallback = null }) {
   }
 
   if (loading) {
-    return fallback || <div className="text-center p-8">Vérification de l'authentification...</div>;
+    return fallback || <div className="text-center p-8">Verifying authentication...</div>;
   }
 
   if (!authenticated) {
-    return fallback || <div className="text-center p-8">Redirection vers la page de connexion...</div>;
+    return fallback || <div className="text-center p-8">Redirecting to login page...</div>;
   }
 
   return children;
