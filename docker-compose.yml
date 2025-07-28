@@ -8,10 +8,16 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=file:./prisma/database.db
-      - JWT_SECRET=${JWT_SECRET:-change-this-in-production-and-use-a-strong-secret-key}
+#      - DATABASE_URL=/home/ubuntu/T2an/prisma/database.db
+#      - JWT_SECRET=${JWT_SECRET:-change-this-in-production-and-use-a-strong-secret-key}
     volumes:
       - ./prisma:/app/prisma
+    command: >
+      sh -c "
+        chown -R astro:nodejs /app/prisma &&
+        chmod -R 775 /app/prisma &&
+        node dist/server/entry.mjs
+      "
     env_file:
       - .env
 

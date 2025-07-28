@@ -28,16 +28,15 @@ model Game {
 }
 
 model Question {
-  id         Int      @id @default(autoincrement())
-  gameId     Int
-  question   String
-  answer     String
-  options    String?
-  type       String   @default("text")
-  difficulty Int      @default(1)
-  metadata   String?
-  createdAt  DateTime @default(now())
-  game       Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  id        Int      @id @default(autoincrement())
+  question  String
+  answer    String
+  type      String   @default("text")
+  difficulty String  @default("medium")
+  metadata  Json?
+  gameId    Int
+  game      Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
 }
 
 model Score {
@@ -48,6 +47,7 @@ model Score {
   maxScore       Int
   streak         Int
   totalQuestions Int
+  gameMode       String   @default("blind")
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
   game           Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)

@@ -16,6 +16,58 @@ if (process.env.NODE_ENV === 'production') {
 
 export async function GET({ request }) {
   try {
+    const url = new URL(request.url);
+    const gameId = url.searchParams.get('gameId');
+    const mode = url.searchParams.get('mode') || 'blind';
+    
+    if (gameId) {
+      // Récupérer le leaderboard pour un jeu et mode spécifiques
+      const leaderboard = await prisma.score.findMany({
+        where: { 
+          gameId: parseInt(gameId),
+          gameMode: mode
+        },
+        include: {
+          user: {
+            select: {
+              username: true
+            }
+          }
+        },
+        orderBy: {
+          streak: 'desc'
+        },
+        take: 10
+      });
+
+      // Récupérer le score de l'utilisateur connecté pour ce jeu et mode
+      let userScore = null;
+      try {
+        const authResult = requireAuth(request);
+        if (authResult.authenticated) {
+          userScore = await prisma.score.findUnique({
+            where: {
+              userId_gameId: {
+                userId: authResult.user.id,
+                gameId: parseInt(gameId)
+              }
+            }
+          });
+        }
+      } catch (error) {
+        // Utilisateur non connecté, pas de problème
+      }
+
+      return new Response(JSON.stringify({
+        leaderboard: leaderboard,
+        userScore: userScore
+      }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' }
+      });
+    }
+
+    // Récupérer tous les scores de l'utilisateur connecté
     const authResult = requireAuth(request);
     
     if (!authResult.authenticated) {
@@ -62,9 +114,9 @@ export async function POST({ request }) {
       });
     }
 
-    const { gameId, score, streak, totalQuestions } = await request.json();
+    const { gameId, streak, gameMode = 'blind' } = await request.json();
 
-    if (!gameId || score === undefined || streak === undefined || totalQuestions === undefined) {
+    if (!gameId || streak === undefined) {
       return new Response(JSON.stringify({ error: 'Missing data' }), {
         status: 400,
         headers: { 'Content-Type': 'application/json' }
@@ -85,10 +137,9 @@ export async function POST({ request }) {
       updatedScore = await prisma.score.update({
         where: { id: existingScore.id },
         data: {
-          score: score,
-          maxScore: Math.max(existingScore.maxScore, score),
           streak: Math.max(existingScore.streak, streak),
-          totalQuestions: existingScore.totalQuestions + totalQuestions
+          totalQuestions: existingScore.totalQuestions + 1,
+          gameMode: gameMode
         }
       });
     } else {
@@ -96,10 +147,9 @@ export async function POST({ request }) {
         data: {
           userId: authResult.user.id,
           gameId: parseInt(gameId),
-          score: score,
-          maxScore: score,
           streak: streak,
-          totalQuestions: totalQuestions
+          totalQuestions: 1,
+          gameMode: gameMode
         }
       });
     }
