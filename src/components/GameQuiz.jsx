@@ -10,6 +10,32 @@ function shuffle(array) {
   return shuffled;
 }
 
+// Helper function to normalize answers for comparison
+function normalizeAnswer(answer) {
+  // Remove extra spaces and convert to lowercase
+  const cleaned = answer.trim().toLowerCase();
+  
+  // For department numbers, accept both formats (01 and 1, 02 and 2, etc.)
+  if (/^\d+$/.test(cleaned)) {
+    // If it's a number, pad with leading zero if it's a single digit
+    const num = parseInt(cleaned, 10);
+    if (num >= 1 && num <= 99) {
+      return num.toString().padStart(2, '0');
+    }
+    // For DOM-TOM (971, 972, 973, 974, 976), return as is
+    if (num >= 971 && num <= 976) {
+      return num.toString();
+    }
+  }
+  
+  // Handle special cases like 2A, 2B (Corse)
+  if (/^2[aAbB]$/.test(cleaned)) {
+    return cleaned.toUpperCase();
+  }
+  
+  return cleaned;
+}
+
 export default function GameQuiz({ game, mode = "blind" }) {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -102,10 +128,14 @@ export default function GameQuiz({ game, mode = "blind" }) {
   function handleSubmit(e) {
     e.preventDefault();
     const currentQuestion = questions[currentQuestionIndex];
-    const userAnswer = input.trim().toLowerCase();
-    const correctAnswer = currentQuestion.answer.toLowerCase();
+    const userAnswer = input.trim();
+    const correctAnswer = currentQuestion.answer;
 
-    const isCorrect = userAnswer === correctAnswer;
+    // Normalize both answers for comparison
+    const normalizedUserAnswer = normalizeAnswer(userAnswer);
+    const normalizedCorrectAnswer = normalizeAnswer(correctAnswer);
+
+    const isCorrect = normalizedUserAnswer === normalizedCorrectAnswer;
 
     if (isCorrect) {
       setCurrentStreak((prev) => prev + 1);
@@ -132,7 +162,14 @@ export default function GameQuiz({ game, mode = "blind" }) {
   }
 
   function handleChoiceClick(choice) {
-    const isCorrect = choice === questions[currentQuestionIndex].answer;
+    const currentQuestion = questions[currentQuestionIndex];
+    const correctAnswer = currentQuestion.answer;
+
+    // Normalize both answers for comparison
+    const normalizedChoice = normalizeAnswer(choice);
+    const normalizedCorrectAnswer = normalizeAnswer(correctAnswer);
+
+    const isCorrect = normalizedChoice === normalizedCorrectAnswer;
 
     if (isCorrect) {
       setCurrentStreak((prev) => prev + 1);
@@ -148,7 +185,7 @@ export default function GameQuiz({ game, mode = "blind" }) {
         }
       }, 1000);
     } else {
-      setFeedback(`❌ Mauvaise réponse. C'était ${questions[currentQuestionIndex].answer}`);
+      setFeedback(`❌ Mauvaise réponse. C'était ${currentQuestion.answer}`);
       // Sauvegarder le score même en cas d'échec
       saveScore(currentStreak);
       setTimeout(() => {
