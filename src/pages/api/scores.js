@@ -45,12 +45,11 @@ export async function GET({ request }) {
       try {
         const authResult = requireAuth(request);
         if (authResult.authenticated) {
-          userScore = await prisma.score.findUnique({
+          userScore = await prisma.score.findFirst({
             where: {
-              userId_gameId: {
-                userId: authResult.user.id,
-                gameId: parseInt(gameId)
-              }
+              userId: authResult.user.id,
+              gameId: parseInt(gameId),
+              gameMode: mode
             }
           });
         }
@@ -123,33 +122,39 @@ export async function POST({ request }) {
       });
     }
 
-    const existingScore = await prisma.score.findUnique({
+    // Chercher un score existant pour ce jeu, utilisateur et mode
+    const existingScore = await prisma.score.findFirst({
       where: {
-        userId_gameId: {
-          userId: authResult.user.id,
-          gameId: parseInt(gameId)
-        }
+        userId: authResult.user.id,
+        gameId: parseInt(gameId),
+        gameMode: gameMode
       }
     });
 
     let updatedScore;
     if (existingScore) {
+      // Mettre à jour le score existant
       updatedScore = await prisma.score.update({
         where: { id: existingScore.id },
         data: {
           streak: Math.max(existingScore.streak, streak),
           totalQuestions: existingScore.totalQuestions + 1,
-          gameMode: gameMode
+          // Mettre à jour les autres champs si nécessaire
+          score: Math.max(existingScore.score || 0, streak),
+          maxScore: Math.max(existingScore.maxScore || 0, streak)
         }
       });
     } else {
+      // Créer un nouveau score
       updatedScore = await prisma.score.create({
         data: {
           userId: authResult.user.id,
           gameId: parseInt(gameId),
           streak: streak,
           totalQuestions: 1,
-          gameMode: gameMode
+          gameMode: gameMode,
+          score: streak,
+          maxScore: streak
         }
       });
     }

@@ -52,6 +52,4 @@ model Score {
   updatedAt      DateTime @updatedAt
   game           Game     @relation(fields: [gameId], references: [id], onDelete: Cascade)
   user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-
-  @@unique([userId, gameId])
 }

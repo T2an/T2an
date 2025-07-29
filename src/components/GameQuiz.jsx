@@ -117,18 +117,14 @@ export default function GameQuiz({ game, mode = "blind" }) {
           setCurrentQuestionIndex((prev) => prev + 1);
         } else {
           setGameOver(true);
-          if (currentStreak + 1 > maxStreak) {
-            setMaxStreak(currentStreak + 1);
-            saveScore(currentStreak + 1);
-          }
+          // Sauvegarder le score final (victoire)
+          saveScore(currentStreak + 1);
         }
       }, 1000);
     } else {
       setFeedback(`❌ Mauvaise réponse. C'était ${currentQuestion.answer}`);
-      if (currentStreak > maxStreak) {
-        setMaxStreak(currentStreak);
-        saveScore(currentStreak);
-      }
+      // Sauvegarder le score même en cas d'échec
+      saveScore(currentStreak);
       setTimeout(() => {
         setGameOver(true);
       }, 3000);
@@ -147,18 +143,14 @@ export default function GameQuiz({ game, mode = "blind" }) {
           setCurrentQuestionIndex((prev) => prev + 1);
         } else {
           setGameOver(true);
-          if (currentStreak + 1 > maxStreak) {
-            setMaxStreak(currentStreak + 1);
-            saveScore(currentStreak + 1);
-          }
+          // Sauvegarder le score final (victoire)
+          saveScore(currentStreak + 1);
         }
       }, 1000);
     } else {
       setFeedback(`❌ Mauvaise réponse. C'était ${questions[currentQuestionIndex].answer}`);
-      if (currentStreak > maxStreak) {
-        setMaxStreak(currentStreak);
-        saveScore(currentStreak);
-      }
+      // Sauvegarder le score même en cas d'échec
+      saveScore(currentStreak);
       setTimeout(() => {
         setGameOver(true);
       }, 3000);
