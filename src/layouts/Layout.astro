@@ -1,6 +1,4 @@
 ---
-import AuthStatus from '../components/AuthStatus.jsx';
-
 interface Props {
   title: string;
   description?: string;
@@ -26,11 +24,8 @@ const { title, description = "Cybersecurity engineer portfolio and blog" } = Ast
         <a href="/" class="text-terminal-green hover:text-white transition-colors">$ cd /home</a>
         <div class="space-x-4 flex items-center">
           <a href="/" class="hover:text-terminal-green transition-colors">Home</a>
-          <a href="/cv" class="hover:text-terminal-green transition-colors">CV</a>
           <a href="/blog" class="hover:text-terminal-green transition-colors">Blog</a>
           <a href="/projets" class="hover:text-terminal-green transition-colors">Projects</a>
-          <a href="/games" class="hover:text-terminal-green transition-colors">Games</a>
-          <AuthStatus client:load />
         </div>
       </nav>
     </header>
@@ -42,4 +37,4 @@ const { title, description = "Cybersecurity engineer portfolio and blog" } = Ast
       </div>
     </footer>
   </body>
-</html> 
+</html>

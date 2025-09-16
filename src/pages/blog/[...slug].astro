@@ -1,4 +1,4 @@
----
+﻿---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
 
@@ -11,6 +11,11 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
+
+if (!post) {
+  throw new Error('Post not found');
+}
+
 const { Content } = await post.render();
 ---
 
@@ -28,8 +33,8 @@ const { Content } = await post.render();
       </time>
     </header>
     
-    <div class="prose prose-invert max-w-none">
+    <div class="prose prose-invert prose-lg max-w-none prose-headings:text-terminal-green prose-a:text-terminal-green prose-strong:text-white prose-code:text-terminal-green prose-code:bg-terminal-gray prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-terminal-gray prose-pre:border prose-pre:border-terminal-green">
       <Content />
     </div>
   </article>
-</Layout> 
+</Layout>
