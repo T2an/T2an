@@ -1,3 +1,9 @@
+---
+title: "Certificats X.509"
+description: "Introduction au contenu et aux usages des certificats X.509"
+pubDate: 2024-01-20T00:00:00.000Z
+---
+
 # Certificats X.509
 
 # Introduction aux certificats X.509

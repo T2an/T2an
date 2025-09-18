@@ -1,3 +1,9 @@
+---
+title: "Introduction to Cybersecurity"
+description: "An overview of fundamental cybersecurity concepts"
+pubDate: 2024-01-20T00:00:00.000Z
+---
+
 # PKI - Public Key Infrastructure
 
 ## Introduction
@@ -20,7 +26,7 @@ Il est donc nécessaire de trouver un moyen de sécuriser l'échange de clé, vi
 En **1976**, *Whitfield Diffie* et *Martin Hellman*, deux chercheurs de l’Université de Stanford, publient *New Directions in Cryptography*. Cet article révolutionne la cryptographie en introduisant un nouveau concept : le **chiffrement asymétrique** (ou chiffrement à clé publique).  
 Nous ne détailleront pas ici le fonctionnement de Diffie-Hellman, mais j'ai écrit un petit article sur le sujet si il vous intérésse.
 
-[Diffie Hellman](Diffie_Hellman.md)
+[Diffie Hellman](diffie_hellman)
 
 Un an après, en **1977**, trois chercheurs américains, *Ron Rivest, Adi Shamir et Leonard Adleman*, publient l'algorithme **RSA** (RSA pour *Rivest–Shamir–Adleman*). C’est l’un des premiers algorithmes de chiffrement asymétrique pratiques :  Il permet de chiffrer et déchiffrer des messages en utilisant une paire de clés distinctes (publique/privée), et également d'ajouter une **signature numérique** pour authentifier l'auteur du message.
 
@@ -32,7 +38,7 @@ Avec RSA, les deux acteurs de l'échange possèdent chacun deux clés :  ne clé
 Ainsi, le problème de la compromission de la clé de chiffrement publique n'en est plus un, car cette information est, par définition, publique.  
 L'acteur A, lorsqu'il souhaite communiquer avec B, demande à obtenir la **clé publique** de B. Il utilise ensuite cette clé pour chiffrer les messages qu'il envoie à B. B utilise sa **clé privée**, qu'il est le seul à posséder, pour déchiffrer les messages.
 
-Pour plus de détails, voir cet article sur RSA : [ Introduction à RSA](RSA.md)
+Pour plus de détails, voir cet article sur RSA : [Introduction à RSA](RSA)
 
 
 ## Le problème de l’authenticité des clés
@@ -54,7 +60,7 @@ Il contient notamment :
 
 Le format de certifiat le plus largement adopté est le certificat x.509. J'ai écrit un petit article sur son format, que je vous recommande de lire avant de continuer : 
 
-[Certificats x509](assets/certificat_x509.md)
+[Certificats x509](certificat_x509)
 
 La signature de la CA permet à n’importe quel utilisateur de vérifier que la clé publique appartient bien au propriétaire indiqué et non à un attaquant,  
 ce qui protège contre les attaques de type MITM. 
@@ -114,7 +120,7 @@ La VA peut fournir des réponses signées garantissant l’authenticité du stat
 
 En plus de ces autorités, on retrouve des composants clés dans l'architecture PKI pour la gestion des certificats :  
 
-- **Les certificats numériques**, comme les [Certificats x509](assets/certificat_x509.md). Ils contiennent la clé publique d’une entité, son identité, la période de validité, et la signature de la CA.  
+- **Les certificats numériques**, comme les [Certificats x509](certificat_x509). Ils contiennent la clé publique d’une entité, son identité, la période de validité, et la signature de la CA.  
 
 - **Base de données de certificats** : Stocke les certificats émis, révoqués et expirés. Utilisée par la CA pour gérer le cycle de vie des certificats.  
 

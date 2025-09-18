@@ -21,19 +21,38 @@ const { Content } = await post.render();
 
 <Layout title={`${post.data.title} | Blog`} description={post.data.description}>
   <article class="max-w-4xl mx-auto">
-    <header class="mb-8">
-      <h1 class="text-4xl font-bold mb-4 text-terminal-green">{post.data.title}</h1>
-      <p class="text-gray-400 mb-4">{post.data.description}</p>
-      <time datetime={new Date(post.data.pubDate).toISOString()} class="text-sm text-gray-500">
-        {new Date(post.data.pubDate).toLocaleDateString('fr-FR', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        })}
-      </time>
+    <header class="mb-12">
+      <h1 class="text-4xl font-bold mb-4 text-heading">{post.data.title}</h1>
+      <p class="text-xl text-text-secondary mb-6 leading-relaxed">{post.data.description}</p>
+      <div class="flex items-center text-sm text-text-muted">
+        <time datetime={new Date(post.data.pubDate).toISOString()}>
+          {new Date(post.data.pubDate).toLocaleDateString('fr-FR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+          })}
+        </time>
+      </div>
     </header>
     
-    <div class="prose prose-invert prose-lg max-w-none prose-headings:text-terminal-green prose-a:text-terminal-green prose-strong:text-white prose-code:text-terminal-green prose-code:bg-terminal-gray prose-code:px-1 prose-code:py-0.5 prose-code:rounded prose-pre:bg-terminal-gray prose-pre:border prose-pre:border-terminal-green">
+    <div class="prose prose-lg max-w-none 
+                prose-headings:text-heading 
+                prose-h1:text-3xl prose-h1:font-bold prose-h1:mb-6 prose-h1:mt-12
+                prose-h2:text-2xl prose-h2:font-bold prose-h2:mb-4 prose-h2:mt-10
+                prose-h3:text-xl prose-h3:font-semibold prose-h3:mb-3 prose-h3:mt-8
+                prose-p:text-text-primary prose-p:leading-relaxed prose-p:mb-4
+                prose-a:text-link prose-a:no-underline hover:prose-a:text-link-hover
+                prose-strong:text-text-primary prose-strong:font-semibold
+                prose-code:text-code-text prose-code:bg-code-bg 
+                prose-code:px-2 prose-code:py-1 prose-code:rounded prose-code:text-sm prose-code:font-mono
+                prose-pre:bg-code-bg prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-pre:p-4
+                prose-pre:overflow-x-auto
+                prose-blockquote:border-l-4 prose-blockquote:border-blockquote prose-blockquote:pl-4 prose-blockquote:italic
+                prose-blockquote:text-text-secondary
+                prose-ul:text-text-primary prose-ol:text-text-primary
+                prose-li:text-text-primary prose-li:mb-2
+                prose-table:text-text-primary prose-th:text-text-primary prose-td:text-text-primary
+                prose-th:bg-surface prose-td:border-border">
       <Content />
     </div>
   </article>

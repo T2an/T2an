@@ -1,3 +1,10 @@
+---
+title: "Diffie-Hellman"
+description: "Une premiere introduction au concept mathématique derrière le protcole de Whitfield Diffie et Martin Hellman"
+pubDate: 2025-09-14
+---
+
+
 # Diffie-Hellman
 
 ## Introduction 

@@ -1,3 +1,9 @@
+---
+title: "Introduction to Cybersecurity"
+description: "An overview of fundamental cybersecurity concepts"
+pubDate: 2024-01-20T00:00:00.000Z
+---
+
 # RSA 
 
 ## Introduction
@@ -10,7 +16,7 @@
 
     Dans cet article nous verront comment fonctionne RSA, les mathématiques derriere cet algorythme et ses usages. 
 
-[Diffie-Hellman](Diffie_Hellman.md)
+[Diffie-Hellman](diffie_hellman)
 
 ## Le chiffrement asymétrique
 

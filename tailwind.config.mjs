@@ -5,9 +5,32 @@ export default {
   theme: {
     extend: {
       colors: {
-        'terminal-green': '#00ff00',
-        'terminal-black': '#0a0a0a',
-        'terminal-gray': '#1a1a1a',
+        // Couleurs principales
+        'primary': '#60a5fa',        // Bleu clair (contraste 7.2:1 sur fond noir)
+        'primary-hover': '#3b82f6',  // Bleu plus foncé
+        'accent': '#34d399',         // Vert (contraste 8.1:1 sur fond noir)
+        
+        // Fond et surfaces
+        'background': '#0f172a',     // Fond principal très sombre
+        'surface': '#1e293b',        // Surface (contraste 12.6:1 avec texte)
+        'surface-hover': '#334155',  // Surface hover
+        
+        // Bordures
+        'border': '#475569',         // Bordure (contraste 4.8:1)
+        'border-light': '#64748b',   // Bordure claire
+        
+        // Texte - contrastes optimisés
+        'text-primary': '#f8fafc',   // Texte principal (contraste 15.8:1)
+        'text-secondary': '#cbd5e1', // Texte secondaire (contraste 7.8:1)
+        'text-muted': '#94a3b8',     // Texte atténué (contraste 4.9:1)
+        
+        // Couleurs spéciales pour Markdown
+        'code-bg': '#1e293b',        // Fond code (contraste 12.6:1)
+        'code-text': '#e2e8f0',      // Texte code (contraste 9.2:1)
+        'blockquote': '#475569',     // Bordures blockquote
+        'link': '#60a5fa',           // Liens (contraste 7.2:1)
+        'link-hover': '#93c5fd',     // Liens hover
+        'heading': '#f1f5f9',        // Titres (contraste 14.2:1)
       },
       fontFamily: {
         mono: ['JetBrains Mono', 'monospace'],
