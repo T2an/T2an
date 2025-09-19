@@ -1,6 +1,6 @@
 ---
 title: "Diffie-Hellman"
-description: "Une premiere introduction au concept mathématique derrière le protcole de Whitfield Diffie et Martin Hellman"
+description: "Une première introduction au concept mathématique derrière le protocole de Whitfield Diffie et Martin Hellman"
 pubDate: 2025-09-14
 ---
 
@@ -9,7 +9,7 @@ pubDate: 2025-09-14
 
 ## Introduction 
 
-    Whitfield Diffie et Martin Hellman, deux chercheurs de l’Université de Stanford, publient *"New Directions in Cryptography"* en 1976. Cet article révolutionne la cryptographie en introduisant le concept de cryptographie asymétrique. Dans cet article nous allons voir comment se met en place une communication sécurisée via le protocole d'échange de clé Diffie-Hellman.
+    Whitfield Diffie et Martin Hellman, deux chercheurs de l'Université de Stanford, publient *"New Directions in Cryptography"* en 1976. Cet article révolutionne la cryptographie en introduisant le concept de cryptographie asymétrique. Dans cet article nous allons voir comment se met en place une communication sécurisée via le protocole d'échange de clés Diffie-Hellman.
 
 ## Intérêt de Diffie-Hellman :
 

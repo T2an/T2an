@@ -14,7 +14,7 @@ pubDate: 2024-01-20T00:00:00.000Z
 
         Il repose sur la difficulté de la factorisation de grands nombres premiers et demeure aujourd’hui encore l’un des algorithmes les plus connus et les plus utilisés en cryptographie.
 
-    Dans cet article nous verront comment fonctionne RSA, les mathématiques derriere cet algorythme et ses usages. 
+    Dans cet article nous verrons comment fonctionne RSA, les mathématiques derrière cet algorithme et ses usages. 
 
 [Diffie-Hellman](diffie_hellman)
 
@@ -98,7 +98,7 @@ On choisit **e = 3**, car `pgcd(3, 40) = 1`
 5. Calculer l’exposant privé `d`
 
 
-`d` est normalement calculé grace à l'algorythme d'euclide etendu, mais on peut le calculer à la main par tatonnement.
+`d` est normalement calculé grâce à l'algorithme d'Euclide étendu, mais on peut le calculer à la main par tâtonnement.
 
 ```text
 Formellement :
@@ -193,13 +193,13 @@ Le processus est identique si Bob souhaite répondre à Alice.
 
 ### Factorisation difficile mais possible
 
-La sécurité de RSA repose sur la difficulté de factoriser un grand nombre N en ses deux nombres premiers p et q. Cependant, avec des clés trop petites, un attaquant peut factoriser N et retrouver la clé privée. L’apparition d’ordinateurs quantiques dans qui pourrait factoriser N beaucoup plus rapidement dans le futur menance RSA, on le dit vulnérables aux attaques post-quantiques.
+La sécurité de RSA repose sur la difficulté de factoriser un grand nombre N en ses deux nombres premiers p et q. Cependant, avec des clés trop petites, un attaquant peut factoriser N et retrouver la clé privée. L'apparition d'ordinateurs quantiques qui pourraient factoriser N beaucoup plus rapidement dans le futur menace RSA, on dit qu'il est vulnérable aux attaques post-quantiques.
 
 ### Lenteur
 
-RSA est lent pour effectuer le chiffrement/déchiffrement de  message par rapport au algorythme de chiffrement symétriques. 
+RSA est lent pour effectuer le chiffrement/déchiffrement de message par rapport aux algorithmes de chiffrement symétriques. 
 
-En pratique, RSA est en fait utilisé pour échanger une clé symétrique (AES, ChaCha20), puis le chiffrement réel des données se fait avec cette clé plus rapide. On appel cette clé "clé de session" (session key)
+En pratique, RSA est en fait utilisé pour échanger une clé symétrique (AES, ChaCha20), puis le chiffrement réel des données se fait avec cette clé plus rapide. On appelle cette clé "clé de session" (session key)
 
 ![Schéma RSA](assets/symetrique_asymetrique.png)
 
@@ -209,4 +209,4 @@ Dans un environnement sans Infrastructure à Clé Publique (PKI), il n’est pas
 
 ### Gestion des clés
 
-Les clés doivent etre gardés secrettes, si la clé privée est compromise, toutes les communications passés et futures associées sont compromises.
+Les clés doivent être gardées secrètes, si la clé privée est compromise, toutes les communications passées et futures associées sont compromises.

@@ -74,7 +74,7 @@ my_cert.crt  pv_key.key
 > Des durées trop longues augmentent le risque en cas de compromission de la clé privée.
 
 
-En plus des options, certaine entrées clavier sont demandées à l'éxécution de la commande  : 
+En plus des options, certaines entrées clavier sont demandées à l'exécution de la commande  : 
 
 
 - **Country Name (C)** (FR) : Deux lettres [ISO 3166](https://en.wikipedia.org/wiki/List_of_ISO_3166_country_codes) 
@@ -87,8 +87,7 @@ En plus des options, certaine entrées clavier sont demandées à l'éxécution 
   - Pour un utilisateur, son nom 
 - **Email Address** (Alice.mybigcompany.com)
 
-Nous avons maintenant notre propre certificat auto signé ! Vo
-yons son contenu.
+Nous avons maintenant notre propre certificat auto-signé ! Voyons son contenu.
 
 
 ## Lecture du certificat
@@ -194,7 +193,7 @@ Certificate:
 ```
 
 
-Le certificat contient plusieurs champs, certains que l'on retrouve dans tout les certificats x.509, d'autre spécifique à la version du certificat.
+Le certificat contient plusieurs champs, certains que l'on retrouve dans tous les certificats x.509, d'autres spécifiques à la version du certificat.
 
 ![x509 versions](assets/x509_versions.png)
 
@@ -219,7 +218,7 @@ Détails des champs :
 - **Authority Key Identifier :** Identifiant unique pour la clé publique de l’autorité de certification. On retrouve logiquement la même valeur que pour le sujet (auto-signé)
 - **Basic Constraints :** `CA:TRUE` : Indique si le certificat est autorité de certification (CA) ou non. Avec `CA:TRUE`, Ce certificat peut signer d'autres certificats, donc c’est un certificat racine ou intermédiaire dans une chaîne de confiance. La mention `critical` signifie que ce champ est obligatoire à prendre en compte lors de la validation du certificat. Par exemple si une application ne comprend pas ce champ, la validation doit échouer.
 
-- **Signature Algorithm:  :** `sha256WithRSAEncryption` : indique 'algorythme utilisé pour signer la certificat.
+- **Signature Algorithm:** `sha256WithRSAEncryption` : indique l'algorithme utilisé pour signer le certificat.
 - **Signature Value  :** : C'est la signature du certificat réalisée par l'autorité grâce à sa clé privée. Elle permet de vérifier l'intégrité du certificat et l'authenticité de son émetteur : si quelqu’un modifie le certificat, la signature ne correspondra plus à son contenu lorsqu’on la vérifie avec la clé publique de l’autorité.
 
 Maintenant que nous avons créé notre certificat et que nous avons une clé privée associée, nous allons voir comment l'utiliser.
@@ -238,7 +237,7 @@ Nous allons ensuite générer la signature du message :
 $ openssl dgst -sha256 -sign pv_key.key -out message.sig message.txt
 ```
 
-Parfait, nous avons notre signature, maintenant pour déchiffrer cette signature nous avons besoin d'extraire la clé publique du certificat : 
+Parfait, nous avons notre signature, maintenant pour vérifier cette signature nous avons besoin d'extraire la clé publique du certificat : 
 
 ```bash
 $ openssl x509 -in my_cert.crt -pubkey -noout > cert_pubkey.pem
@@ -266,14 +265,14 @@ Verified OK
 
 La signature est valide ! 
 
-Cette signature est calculée à partir du haché du message, et sera donc valide uniquement si le message originel n'a pas été modifié. Tentons de le modifier et de re-signer.
+Cette signature est calculée à partir du haché du message, et sera donc valide uniquement si le message original n'a pas été modifié. Tentons de le modifier et de re-signer.
 
 ```bash
 $ echo "nouvelles data" > message.txt 
 ```
 
 ```bash
-$ openssl dgst -sha256 -verify cert_pubkey.pem -signature message.sig message_mod.txt
+$ openssl dgst -sha256 -verify cert_pubkey.pem -signature message.sig message.txt
 Verification failure
 806BE37EEF7F0000:error:02000068:rsa routines:ossl_rsa_verify:bad signature:../crypto/rsa/rsa_sign.c:430:
 806BE37EEF7F0000:error:1C880004:Provider routines:rsa_verify:RSA lib:../providers/implementations/signature/rsa_sig.c:774:
@@ -315,7 +314,7 @@ Le certificat public de l'autorité doit nous permettre de vérifier la signatur
 
 **ssi.gouv.fr**
 
-C’est le certificat final (end-entity), celui utilisé par le serveur web que tu visites pour prouver son identité. Il contient le CN (Common Name) ou le SAN (Subject Alternative Name) correspondant au domaine et est signé par l’intermédiaire `Services Services CA`.
+C'est le certificat final (end-entity), celui utilisé par le serveur web que tu visites pour prouver son identité. Il contient le CN (Common Name) ou le SAN (Subject Alternative Name) correspondant au domaine et est signé par l'intermédiaire `Certigna Services CA`.
 
 Pour vérifier manuellement la signature du certificat `ssi.gouv.fr` par Certigna Services CA, nous pouvons télécharger les 2 certificats puis utiliser OpenSSL : 
 

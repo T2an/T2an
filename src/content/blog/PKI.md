@@ -24,13 +24,13 @@ Le problème principal que pose cette méthode de chiffrement est la **distribut
 Il est donc nécessaire de trouver un moyen de sécuriser l'échange de clé, via une rencontre physique ou un canal déjà sécurisé, ce qui réduit l'efficacité du chiffrement à grande échelle (par exemple, impossibilité d'échanger des clés entre deux acteurs qui ne se connaissent pas encore).
 
 En **1976**, *Whitfield Diffie* et *Martin Hellman*, deux chercheurs de l’Université de Stanford, publient *New Directions in Cryptography*. Cet article révolutionne la cryptographie en introduisant un nouveau concept : le **chiffrement asymétrique** (ou chiffrement à clé publique).  
-Nous ne détailleront pas ici le fonctionnement de Diffie-Hellman, mais j'ai écrit un petit article sur le sujet si il vous intérésse.
+    Nous ne détaillerons pas ici le fonctionnement de Diffie-Hellman, mais j'ai écrit un petit article sur le sujet s'il vous intéresse.
 
 [Diffie Hellman](diffie_hellman)
 
 Un an après, en **1977**, trois chercheurs américains, *Ron Rivest, Adi Shamir et Leonard Adleman*, publient l'algorithme **RSA** (RSA pour *Rivest–Shamir–Adleman*). C’est l’un des premiers algorithmes de chiffrement asymétrique pratiques :  Il permet de chiffrer et déchiffrer des messages en utilisant une paire de clés distinctes (publique/privée), et également d'ajouter une **signature numérique** pour authentifier l'auteur du message.
 
-Avec RSA, les deux acteurs de l'échange possèdent chacun deux clés :  ne clé puublique et une clé privée. Les deux clés sont différentes mais mathématiquement liées : la clé publique permet de chiffrer des messages que seule la clé privée peut déchiffrer. La 
+Avec RSA, les deux acteurs de l'échange possèdent chacun deux clés : une clé publique et une clé privée. Les deux clés sont différentes mais mathématiquement liées : la clé publique permet de chiffrer des messages que seule la clé privée peut déchiffrer. 
 
 ![RSA](assets/rsa.png)
 
@@ -58,14 +58,14 @@ Il contient notamment :
 - une durée de validité  
 - la signature d’une **autorité de certification (CA)**  
 
-Le format de certifiat le plus largement adopté est le certificat x.509. J'ai écrit un petit article sur son format, que je vous recommande de lire avant de continuer : 
+Le format de certificat le plus largement adopté est le certificat x.509. J'ai écrit un petit article sur son format, que je vous recommande de lire avant de continuer : 
 
 [Certificats x509](certificat_x509)
 
 La signature de la CA permet à n’importe quel utilisateur de vérifier que la clé publique appartient bien au propriétaire indiqué et non à un attaquant,  
 ce qui protège contre les attaques de type MITM. 
 
-Les **signatures numériques** permettent d’authentifier l’auteur d’un message et de garantir son intégrité. Elle est calculé à partir d'une emprunte (hash) du message (ici, du certificat) et de la clé privée du signataire. Elle est ensuite vérifier grace à la l'emprunte de message et la `clé publique` du signataire.
+Les **signatures numériques** permettent d'authentifier l'auteur d'un message et de garantir son intégrité. Elle est calculée à partir d'une empreinte (hash) du message (ici, du certificat) et de la clé privée du signataire. Elle est ensuite vérifiée grâce à l'empreinte du message et la `clé publique` du signataire.
 
 Si le message est modifié après sa signature, la vérification échoue,  ce qui assure que le contenu reçu n’a pas été altéré.
 
@@ -200,7 +200,7 @@ Il le stockera selon l’usage :
 
 ## Cas d'usage du certificat
 
-Maintenant que le client à son certificat, plaçons-nous dans le cas où un serveur exige de l'authentification mutuelle TLS (mTLS) dans le cadre d'un serveur d'entreprise.
+Maintenant que le client a son certificat, plaçons-nous dans le cas où un serveur exige de l'authentification mutuelle TLS (mTLS) dans le cadre d'un serveur d'entreprise.
 
 ![MTLS](assets/MTLS.png)
 
@@ -263,5 +263,5 @@ Contrairement aux générations précédentes de réseaux mobiles, la 5G introdu
 
 Le standard 3GPP mentionne l’usage de la PKI dans plusieurs spécifications comme la [TS 33.310](https://www.etsi.org/deliver/etsi_ts/133300_133399/133310/18.07.00_60/ts_133310v180700p.pdf) qui définit notamment les aspects de sécurité liés à l’accès et à l’enrôlement des certificats.
 
-La PKI constitue la colonne vertébrale de la confiance dans les réseaux 5G, nous y dediront prochainement un article.
+La PKI constitue la colonne vertébrale de la confiance dans les réseaux 5G, nous y dédirons prochainement un article.
  

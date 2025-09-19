@@ -4,7 +4,7 @@ description: "Mise en place d'un laboratoire et analyse en profondeur du protoco
 pubDate: 2025-09-25
 ---
 
-# Anlyse de trames TLS
+# Analyse de trames TLS
 
 ## Introduction à TLS (Transport Layer Security)
 
@@ -22,7 +22,7 @@ L’usage le plus connu de TLS est son rôle dans le protocole HTTPS pour navigu
 
 ## Principe
 
-Lorsqu’un client (navigateur, application) se connecte à un serveur TLS il initie un `Handshake`. Durant ce handshake, le client et le serveur négocient les paramètres cryptographiques (algorithmes de chiffrement, clés, etc.), le client authentifie le serveur et genere un secret, nommé "pre-master secret", qui sera dérivé pour creer une session chiffré entre lui et le serveur. 
+Lorsqu'un client (navigateur, application) se connecte à un serveur TLS il initie un `Handshake`. Durant ce handshake, le client et le serveur négocient les paramètres cryptographiques (algorithmes de chiffrement, clés, etc.), le client authentifie le serveur et génère un secret, nommé "pre-master secret", qui sera dérivé pour créer une session chiffrée entre lui et le serveur. 
 
 ## De SSL à TLS 1.3
 
